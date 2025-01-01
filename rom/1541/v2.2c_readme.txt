@@ -1,0 +1,28 @@
+ROM/RAM V2.2c from 23.12.2024
+------------------------------------------
+
+File: v2.2c_1541_27C040_Multi-Speeder-ROM.bin
+
+A16|
+A17|
+A18|Bank  |DOS/KERNAL       |EPROM          |ROM              |RAM 1)                           |
+---+------+-----------------+---------------------------------+---------------------------------|
+000|Bank 0|CBMDOS 2.6       |$00000 - $0FFFF|ROM $2000 - $FFFF|RAM $6000 - $9FFF                |
+001|Bank 1|DolphinDos 2.0   |$10000 - $1FFFF|ROM $2000 - $FFFF|RAM $6000 - $9FFF                |
+010|Bank 2|SpeedDos+40T(GCR)|$20000 - $2FFFF|ROM $2000 - $FFFF|RAM $6000 - $9FFF                |
+011|Bank 3|JiffyDos 5.0 2)  |$30000 - $3FFFF|ROM $2000 - $FFFF|RAM $6000 - $9FFF                |
+100|Bank 4|S-JiffyDos 1 2)  |$40000 - $4FFFF|ROM $2000 - $FFFF|RAM $6000 - $7FFF                |
+101|Bank 5|RapiDOS          |$50000 - $5FFFF|ROM $2000 - $FFFF|RAM $6000 - $7FFF                |
+110|Bank 6|CBMDOS 2.6       |$60000 - $6FFFF|ROM $2000 - $FFFF|RAM $A000 - $BFFF & $4000 - $7FFF|
+111|Bank 7|SpeedDos2.7Expert|$70000 - $7FFFF|ROM $2000 - $FFFF|RAM $A000 - $BFFF & $4000 - $7FFF|
+
+1) RAM area overlaps the ROM.
+2) JiffyDOS and S-JiffyDOS are not included in the ROM for copyright reasons. Instead, the 
+   standard CBMDOS is included and can easily be replaced with your own JiffyDOS and S-JiffyDOS 
+   using a HEX editor.
+
+Note: SpeedDos+40T is provided with a GCR patch. This patch optimizes the GCR decoding and 
+      significantly doubles the speed again. However, SpeedDos+40T(GCR) also requires an adapted 
+      C64 Kernal.
+
+

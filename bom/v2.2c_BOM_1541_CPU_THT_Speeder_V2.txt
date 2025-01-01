@@ -1,0 +1,17 @@
+null	Sourced	Placed	References	Value	Footprint	Datasheet	Description	Quantity
+1			C1, C4, C5, C6	0,1uF	C_Disc_D3.0mm_W2.0mm_P2.50mm	https://www.aliexpress.com/item/32971478818.html	Unpolarized capacitor	4
+2			C2, C3	22pF	C_Disc_D3.0mm_W2.0mm_P2.50mm	https://www.aliexpress.com/item/32971478818.html	Unpolarized capacitor	2
+3			R2	10K	R_Axial_DIN0204_L3.6mm_D1.6mm_P5.08mm_Horizontal	https://www.aliexpress.com/item/1005001627995396.html	10k ohm 1/4W Metal Film Resistor 0.25W 1%	1
+4			R3	560R	R_Axial_DIN0204_L3.6mm_D1.6mm_P5.08mm_Horizontal	https://www.aliexpress.com/item/1005001627995396.html	Resistor, small symbol	1
+5			D1	LED	LED_D3.0mm	https://www.aliexpress.com/item/1005005708510866.html	Light emitting diode	1
+6			U1	CPU 6502	DIP-40_W15.24mm_Socket	http://www.6502.org/documents/datasheets/mos/mos_6500_mpu_mar_1980.pdf	8-bit NMOS Microprocessor, 64K, DIP-40	1
+7			U2	EPROM	PLCC-32_THT-Socket	https://www.aliexpress.com/item/1005003414421776.html	512K x 8 HIGH-SPEED CMOS STATIC RAM, 10ns, SOJ-36	1
+8			U3	74HCT273N	DIP-20_W7.62mm	https://www.ti.com/lit/ds/symlink/sn74ahct273.pdf	8-bit D Flip-Flop, reset	1
+9			U4	ATmega328-PU	DIP-28_W7.62mm	https://ww1.microchip.com/downloads/en/DeviceDoc/ATmega48A-PA-88A-PA-168A-PA-328-P-DS-DS40002061B.pdf	8-Bit Mikrocontroller - MCU AVR 32K FLSH 1K EE2K SRAM-20MHz IND	1
+10			U5	ATF16V8	DIP-20_W7.62mm	https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-0364-PLD-ATF16V8B-8BQ-8BQL-Datasheet.pdf	High-performance EE PLD DIP-20	1
+11			U6	62256 SRAM	SOP-28_8.4x18.16mm_P1.27mm	https://www.digikey.de/de/products/detail/alliance-memory-inc/AS6C62256-55SCN/4234593	256K (32K x 8) Static RAM, 70ns, SO-28	1
+12			Y1	16/20MHz	Crystal_HC49-4H_Vertical	https://www.aliexpress.com/item/1005006870244655.html	16 Mhz or 20 Mhz Quartz Crystal Resonator Passive Oscillator HC 49S	1
+13			SW1	JTP-1130	JTP-1130	https://www.aliexpress.com/item/1005003168146560.html		1
+14			UC1	2x20 CONN HDR	DIP-40_W15.24mm_Socket_LongPads	https://www.digikey.de/de/products/detail/mill-max-manufacturing-corp/334-40-140-00-020000/7746412	Male Header Single Row 40 Pin (2x20 Pin) 2.54mm Pin Connector Strip Round Needle Connector	1
+15			J2	SPI	PinHeader_2x03_P2.54mm_Vertical	https://www.aliexpress.com/item/4000303366348.html	2.54mm Pitch 2x3 6 Pin Male Double Row Straight Pin Header Strip Connector	1
+16			J5	ROM Select	PinHeader_1x03_P2.54mm_Vertical	https://www.aliexpress.com/item/1005005992030371.html	2.54mm Single Row Male Curved Needle Pin Header Connector	1
