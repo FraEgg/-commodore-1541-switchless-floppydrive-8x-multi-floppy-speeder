@@ -250,6 +250,54 @@ Eine modernere WDC W65C02-CPU kann verwendet werden, allerdings verringert sich 
 5. [Schaltpläne, Dokumentation zum 8x Multi-Speeder 32KB RAM Expansion (DolphinDos2)](https://github.com/FraEgg/commodore-1541-switchless-floppydrive-8x-multi-floppy-speeder/tree/master/docs)
 
 6. [Fotogalerie](https://github.com/FraEgg/commodore-1541-switchless-floppydrive-8x-multi-floppy-speeder/tree/master/images)
+   
+   
+
+## Erster Start
+
+1. Bevor die Platine das erste Mal im Diskettenlaufwerk verwendet wird, prüfen Sie, ob alle Bauteile (ICs) richtig gepolt und korrekt eingesetzt sind.
+
+2. Prüfen Sie die Platine auf Kurzschlüsse in der Spannungsversorgung. Kurzschlüsse in der Spannungsversorgung können den Speeder und das Mainboard des Diskettenlaufwerks leicht beschädigen. Prüfen Sie z. B. an den Polen der 0,1 µF-Kondensatoren der Multi-Speeder-Platine, dass **keine** Kurzschlüsse vorliegen.
+
+3. Überprüfen Sie den Sitz der Platine im CPU-Sockel auf dem Mainboard und stellen Sie sicher, dass die Platine keine Kontakte am Mainboard berührt.
+
+4. Achten Sie bei der Montage darauf, dass das Diskettenlaufwerk vom Stromnetz getrennt ist.
+
+## Fehlfunktionen
+
+Beim Zusammenbau kann es zu Problemen kommen. Hier sind einige Fehlfunktionen aufgeführt, die während des Zusammenbaus auftreten können:
+
+
+1. **Fehler: Beim Start des Diskettenlaufwerks läuft der Floppy-Motor, und die rote LED leuchtet dauerhaft.**  
+   **Lösung:** Das Laufwerk kann sich nicht initialisieren. Dies liegt meist an Kontaktproblemen bei den ICs. Beispielsweise haben die SMD-ICs keinen korrekten Kontakt zur Platine, oder Pins wie Adressbus oder Datenbus haben an den Lötstellen einen Kurzschluss (EPROM-Sockel, RAM, ATF16V8, ATMega328).  Prüfen Sie auch, ob EPROM, ATF16V8 und ATMega328 korrekt programmiert sind.
+   
+
+2. **Unter DolphinDos startet das Diskettenlaufwerk korrekt, stürzt jedoch beim Laden ab. Das originale CBMDOS (Bank 0 / 1@RNROM) läuft fehlerfrei.**  
+   **Lösung:** Vermutlich funktioniert das RAM nicht korrekt. Prüfen Sie die Lötstellen am RAM-IC. Stellen Sie sicher, dass DolphinDos in Bank 0-3 installiert ist, damit der richtige RAM-Bereich verfügbar ist. Starte das Multi-Speeder-Diagnosetool unter CBMDOS (Bank 0 / 1@RNROM), um das RAM zu testen.
+   
+
+3. **DolphinDos oder SpeedDos lädt mit langsamer Geschwindigkeit.**  
+   **Lösung:** Das Parallelkabel ist fehlerhaft oder nicht angeschlossen.
+   
+
+4. **Die Umschaltung der Kernals über die DOS-Befehle x@RNROM funktioniert nicht.**  
+   **Lösung:** Prüfe, ob das Kernal-ROM gewechselt wird, wenn Du den PIN SelROM kurz auf GND legst. Damit kannst Du die Bänke von 0-7 (+1) manuell schalten. Wenn Du den PIN RstROM kurz auf GND legst, sollte auf Bank 0 geschaltet werden. Dies ist hilfreich, wenn das Diskettenlaufwerk bei einer defekten Firmware nicht mehr reagiert. Daher sollte in Bank 0 immer das originale CBMDOS gespeichert sein. Wenn die manuelle Umschaltung funktioniert, könnte es an einem Kontaktproblem des 74HTC275N oder des ATMega328 liegen, da der Datenbus D0-D7 möglicherweise nicht korrekt erfasst wird. Wenn die manuelle Umschaltung nicht funktioniert, arbeitet der ATMega328 möglicherweise nicht korrekt (z. B. Quarz oder 22-pF-Kondensatoren prüfen).
+   
+
+5. **Beim Laden führt das Laufwerk einen Reset aus oder stoppt den Ladevorgang, und die rote LED erlischt.**  
+   **Lösung:** Der Mikrocontroller wechselt das Kernal-ROM während des Ladens. Dies kann passieren, wenn ein ROM-Wechsel durch einen falschen x@RNROM-Befehl erkannt wird, der z. B. im Programmcode auf der Diskette enthalten ist. In diesem Fall deaktiviere die "switchless" Umschaltung mit dem DOS-Befehl: **OPEN 1,8,15,"I:0@RNROM":CLOSE 1** oder **@I:0@RNROM**. Wenn Du das Laufwerk aus- und wieder einschaltest, ist die "switchless"-Funktion wieder aktiv.
+   
+
+6. **DolphinDos oder SpeedDos zeigen beim Laden des Directory "$" mit F7 wirre Zeichen.**
+   **Lösung:** Das Parallelkabel zum Userport ist zu lang oder hat ein Kontaktproblem. Das Parallelkabel sollte insgesamt nicht länger als 60 cm sein.
+   
+
+7. **Das Laufwerk startet mal korrekt und dann stürzt dann einfach ab oder die rote LED blinkt**
+   **Lösung:** Prüfe die Kontakte zum Mainboard und dem Multi-Speeder auf Wackelkontakte.
+   
+   
+   
+   
 
 ## Shared Projects auf PCBWay.com
 
@@ -297,11 +345,13 @@ Zu diesem Projekt haben viele beigetragen, und es ist das Ergebnis der Arbeit vi
 
 2. **RetroNynjah**, der mir geholfen hat, seinen Switchless Multi-ROM auf den 8x Multi-Speeder zu integrieren. [GitHub - RetroNynjah/Switchless-Multi-ROM-for-27128-27256](https://github.com/RetroNynjah/Switchless-Multi-ROM-for-27128-27256)
 
-3. **silverdr**, für die hilfreichen technischen Daten zu DolphinDos. [https://e4aws.silverdr.com/projects/dolphindos2/](https://e4aws.silverdr.com/projects/dolphindos2/)
+3. **Oliver Eikemeier und Oliver Joppich**, die 1984 SpeedDos entwickelt haben. 
 
-4. **ytmytm**, für seinen TrackCache: [GitHub - ytmytm/1571-TrackCacheROM: A firmware patch for Commodore 1571 drive and internal C128D drive enabling RAM expansion use for track cache](https://github.com/ytmytm/1571-TrackCacheROM)
+4. **silverdr**, für die hilfreichen technischen Daten zu DolphinDos. [https://e4aws.silverdr.com/projects/dolphindos2/](https://e4aws.silverdr.com/projects/dolphindos2/)
 
-5. **Stefan Kauf**, für seine Unterstützung bei der Idee des Multi-Speeders und seine Vorlagen.
+5. **ytmytm**, für seinen TrackCache: [GitHub - ytmytm/1571-TrackCacheROM: A firmware patch for Commodore 1571 drive and internal C128D drive enabling RAM expansion use for track cache](https://github.com/ytmytm/1571-TrackCacheROM)
+
+6. **Stefan Kauf**, für seine Unterstützung bei der Idee des Multi-Speeders und seine Vorlagen.
    
    
 
@@ -329,5 +379,7 @@ Viele Grüße
 Frank Eggen
 
 E-Mail: [retro@emden.net](mailto:retro@emden.net)
+
+
 
 

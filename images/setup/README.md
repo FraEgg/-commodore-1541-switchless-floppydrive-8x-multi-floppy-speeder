@@ -62,7 +62,7 @@ In the 1541-II and 1541-I, all ROMs for the firmware/kernals must be removed. Th
 
 <img src="https://github.com/FraEgg/commodore-1541-switchless-floppydrive-8x-multi-floppy-speeder/blob/master/images/setup/Setup17_Para_6522.jpg?raw=true" title="" alt="" style="zoom:15%;">
 
-**Only with the 1541-II** the PIN 1-2 must be disconnected. PIN 1 (GND) connects PIN 2 (PA0) to GND. However, PIN 2 is required for parallel data transmission and must therefore not be permanently set to GND. Therefore, the bridge between PIN1 and PIN2 on the mainboard (rear) must be disconnected from U6! Diese Prozedur ist nur bei der 1541-II oder 1541C. Bei der 1541-I ist dieser Schritt nicht notwendig.This procedure is only required for the 1541-II or 1541C. This step is not necessary for the 1541-I.
+**Only with the 1541-II** the PIN 1-2 must be disconnected. PIN 1 (GND) connects PIN 2 (PA0) to GND. However, PIN 2 is required for parallel data transmission and must therefore not be permanently set to GND. Therefore, the bridge between PIN1 and PIN2 on the mainboard (rear) must be disconnected from U6! This procedure is only required for the 1541-II or 1541C. This step is not necessary for the 1541-I.
 
 ### Setup 9
 
@@ -85,6 +85,52 @@ I soldered the adapter board with Gold Round Female Male PINs. Alternatively, yo
 For the parallel cable I use a Micromatch 2.54mm Pitch Double Row Female IDC Box Header Connector.
 
 ### Setup 12
+
+<img title="" src="https://github.com/FraEgg/commodore-1541-switchless-floppydrive-8x-multi-floppy-speeder/blob/master/images/XGecuT48UniversalProgrammerEEPROM.png?raw=true" alt="" style="zoom:25%;">
+
+To ensure the 8x Multi-Speeder 32KB operates correctly, the 27C040/29F040 EPROM, ATF16v8 PLD, and the ATMega328 must be programmed. I use the T48Pro EPROM Programmer with the Xgpro Windows software for all three components.
+
+
+
+#### EPROM 27C040/29F040 PLCC32
+
+The 8x Multi-Speeder requires a 4Mb (512K x 8) EPROM in the PLCC32 form factor for the firmware/Kernals of the 1541 disk drive. I use 27C040 or 29F040 PLCC32 EPROMs. It is important to ensure the appropriate solder bridge (on the back) is closed for the correct EPROM type, as these EPROM types differ slightly in their pinout.
+
+
+
+More information can be found on the project's GitHub page. 
+
+
+
+The example firmware can be downloaded from [/rom/1541](https://github.com/FraEgg/commodore-1541-switchless-floppydrive-8x-multi-floppy-speeder/tree/master/rom/1541).
+
+
+
+#### ATF16V8 PLD
+
+ATF16V8 is a high-performance CMOS Electrically-Erasable Programmable Logic Device. This component controls the address logic of the EPROM and RAM for the 8x Multi-Speeder. I use ATF16V8B(QL) types in DIP (THT) or SOIC (SMD) form factors.
+
+
+
+The firmware file `ATF16V8_Logic_Vx_xx.jed` can be downloaded from [/logic/](https://github.com/FraEgg/commodore-1541-switchless-floppydrive-8x-multi-floppy-speeder/tree/master/logic).
+
+
+
+#### ATMega328
+
+The ATMega328 is an advanced virtual RISC microcontroller. This microcontroller monitors the 6502 CPU data bus of the 1541 disk drive and switches the appropriate ROM bank when it detects the corresponding command on the data bus. The microcontroller can operate with a 16MHz or 20MHz crystal. I typically use a 20MHz crystal, as it ensures very reliable detection for switching.
+
+
+
+The firmware for the ATMega328 can be downloaded from [/atmega/](https://github.com/FraEgg/commodore-1541-switchless-floppydrive-8x-multi-floppy-speeder/tree/master/logic).
+
+
+
+**Note**: When using the T48Pro EPROM Programmer software Xgpro, I use the project file `Firmware_ATMega328P_vx.xx.mpj`. This file contains the correct configuration for the ATMega328. When flashing, make sure not to write to the EEPROM. Since there is no data stored in the EEPROM, attempting to write it may result in an error during flashing.
+
+
+
+### Setup 13
 
 <img src="https://github.com/FraEgg/commodore-1541-switchless-floppydrive-8x-multi-floppy-speeder/blob/master/images/setup/Setup21_1541-I-PCB.jpg?raw=true" title="" alt="" style="zoom:15%;">
 

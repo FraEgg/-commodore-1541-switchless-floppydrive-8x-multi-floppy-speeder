@@ -244,18 +244,73 @@ The BOM are stored in [/bom/](https://github.com/FraEgg/commodore-1541-switchles
 5. [Schematics, Documentation for 8x Multi-Speeder 32KB RAM Expansion (DolphinDos2)](https://github.com/FraEgg/commodore-1541-switchless-floppydrive-8x-multi-floppy-speeder/tree/master/docs)
 
 6. [Photo Gallery](https://github.com/FraEgg/commodore-1541-switchless-floppydrive-8x-multi-floppy-speeder/tree/master/images)
+
+## First Start
+
+1. Before using the board in the disk drive for the first time, check if all components (ICs) are correctly oriented and properly inserted.
+
+2. Inspect the board for short circuits in the power supply. Short circuits in the power supply can easily damage the Speeder and the disk drive's mainboard. Check, for example, at the poles of the 0.1 µF capacitors on the Multi-Speeder board to ensure there are **no short circuits present**.
+
+3. Verify the board's placement in the CPU socket on the mainboard and ensure the board does not touch any contacts on the mainboard.
+
+4. During installation, make sure the disk drive is disconnected from the power supply.
+
+## Troubleshooting
+
+Issues may arise during assembly. Here are some common problems that might occur and their solutions:
+
+
+1. **Problem:** Upon starting the disk drive, the floppy motor runs, and the red LED remains lit.
+    **Solution:** The drive fails to initialize. This is often due to contact issues with the ICs. For example, SMD ICs may not be making proper contact with the board, or pins such as the address or data bus may have short circuits at solder points (EPROM socket, RAM, ATF16V8, ATMega328). Check whether the EPROM, ATF16V8, and ATMega328 are properly programmed.
    
+
+2. **Problem:** Under DolphinDos, the disk drive starts correctly but crashes during loading. The original CBMDOS (Bank 0 / 1@RNROM) works without issues.
+    **Solution:** The RAM may not be functioning correctly. Inspect the solder joints on the RAM IC. Ensure DolphinDos is installed in Bank 0-3 so that the appropriate RAM area is available. Run the Multi-Speeder diagnostic tool under CBMDOS (Bank 0 / 1@RNROM) to test the RAM.
    
+
+3. **Problem:** DolphinDos or SpeedDos loads at a slow speed.
+    **Solution:** The parallel cable is faulty or not connected.
+   
+
+4. **Problem:** Switching Kernals using the DOS commands x@RNROM does not work.
+    **Solution:** Check if the Kernal-ROM changes when you briefly connect the SelROM pin to GND. This allows you to manually switch between banks 0-7 (+1). Briefly connecting the RstROM pin to GND should reset to Bank 0. This is useful if the disk drive becomes unresponsive due to a faulty firmware. Bank 0 should always contain the original CBMDOS. If manual switching works, the issue may be due to contact problems with the 74HTC275N or ATMega328, as the data bus (D0-D7) might not be read correctly. If manual switching does not work, the ATMega328 may not function correctly (check the crystal or 22-pF capacitors).
+   
+
+5. **Problem:** The drive resets during loading, or the loading process stops and the red LED turns off.
+    **Solution:** The microcontroller switches the Kernal-ROM during loading. This may occur if a ROM switch is mistakenly triggered by an incorrect x@RNROM command embedded in the disk's program code. To disable the "switchless" mode, use the DOS command:
+   
+
+```
+OPEN 1,8,15,"I:0@RNROM":CLOSE 1  
+```
+
+or
+
+```
+@I:0@RNROM
+```
+
+When you turn the drive off and on again, the "switchless" functionality will be reactivated.
+
+
+6. **Problem:** DolphinDos or SpeedDos displays garbled characters when loading the directory "$" with F7.
+    **Solution:** The parallel cable connected to the user port is either too long or has a contact issue. The total length of the parallel cable should not exceed 60 cm.
+   
+
+7. **Problem:** The drive starts correctly at times but then crashes or the red LED blinks.
+    **Solution:** Check the connections between the mainboard and the Multi-Speeder for loose or intermittent contacts.
+
+
 
 ## Shared Projects on PCBWay.com
 
 ### Commodore 1541 Switchless 8x Multi-Speeder
 
-1. [PCBWay: Switchless Floppy Drive 8x Multi Floppy Speeder (THT) for the Commodore 1541 Disk Drive (V2.2c)](https://www.pcbway.com/project/shareproject/Switchless_Floppy_Drive_8x_Multi_Floppy_Speeder_for_the_Commodore_1541_Disk_Driv_369dbba4.html)
+1. [Switchless Floppy Drive 8x Multi Floppy Speeder (THT) for the Commodore 1541 Disk Drive (V2.2c)](https://www.pcbway.com/project/shareproject/Switchless_Floppy_Drive_8x_Multi_Floppy_Speeder_for_the_Commodore_1541_Disk_Driv_369dbba4.html)
 
-2. [PCBWay: Switchless Floppy Drive 8x Multi Floppy Speeder (SMD) for the Commodore 1541 Disk Drive (V2.2c)](https://www.pcbway.com/project/shareproject/Switchless_Floppy_Drive_8x_Multi_Floppy_Speeder_for_the_Commodore_1541_Disk_Driv_33eedf94.html)
+2. [Switchless Floppy Drive 8x Multi Floppy Speeder (SMD) for the Commodore 1541 Disk Drive (V2.2c)](https://www.pcbway.com/project/shareproject/Switchless_Floppy_Drive_8x_Multi_Floppy_Speeder_for_the_Commodore_1541_Disk_Driv_33eedf94.html)
 
-3. [PCBWay: Parallel Cable Sets for the Commodore 1541 Disk Drive (SpeedDOS, DolphinDOS) with the C64/C128](https://www.pcbway.com/project/shareproject/C64_Userport_Adapter_Parallel_Cable_Set_for_the_Commodore_1541_Disk_Drive_Spe_3b86d1f8.html)
+3. [Parallel Cable Sets for the Commodore 1541 Disk Drive (SpeedDOS, DolphinDOS) with the C64/C128](https://www.pcbway.com/project/shareproject/C64_Userport_Adapter_Parallel_Cable_Set_for_the_Commodore_1541_Disk_Drive_Spe_3b86d1f8.html)
 
 ### Commodore 1541 Parallel Port Adapter VIA 6522
 
@@ -295,11 +350,13 @@ Many people contributed to this project, and it is the result of the efforts of 
 
 2. **RetroNynjah**, who helped me integrate his Switchless Multi-ROM into the 8x Multi-Speeder. [GitHub - RetroNynjah/Switchless-Multi-ROM-for-27128-27256](https://github.com/RetroNynjah/Switchless-Multi-ROM-for-27128-27256)
 
-3. **silverdr**, for the helpful technical data on DolphinDos. [https://e4aws.silverdr.com/projects/dolphindos2/](https://e4aws.silverdr.com/projects/dolphindos2/)
+3. **Oliver Eikemeier und Oliver Joppich**, who developed SpeedDos.
 
-4. **ytmytm**, for his TrackCache: [GitHub - ytmytm/1571-TrackCacheROM: A firmware patch for Commodore 1571 drive and internal C128D drive enabling RAM expansion use for track cache](https://github.com/ytmytm/1571-TrackCacheROM)
+4. **silverdr**, for the helpful technical data on DolphinDos. [https://e4aws.silverdr.com/projects/dolphindos2/](https://e4aws.silverdr.com/projects/dolphindos2/)
 
-5. **Stefan Kauf**, for his support of the Multi-Speeder concept and his templates.
+5. **ytmytm**, for his TrackCache: [GitHub - ytmytm/1571-TrackCacheROM: A firmware patch for Commodore 1571 drive and internal C128D drive enabling RAM expansion use for track cache](https://github.com/ytmytm/1571-TrackCacheROM)
+
+6. **Stefan Kauf**, for his support of the Multi-Speeder concept and his templates.
    
    
 
@@ -329,5 +386,3 @@ Best regards,
 Frank Eggen
 
 E-Mail: [retro@emden.net](mailto:retro@emden.net)
-
-
